@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head"><div><p class="eyebrow">ADMIN DASHBOARD</p><h1>All users</h1></div><a class="secondary" href="/">Home</a></div>
+<div class="table-wrap card">
+<table>
+<thead><tr><th>User</th><th>Profile</th><th>Latest plan</th></tr></thead>
+<tbody>
+{% for user in users %}
+<tr>
+<td><strong>{{ user.name }}</strong><br><span class="muted">{{ user.user_id }}</span></td>
+<td>{{ user.age }} years<br>{{ user.weight }} kg<br>{{ user.goal }} / {{ user.intensity }}</td>
+<td>
+{% if user.plans %}
+<details><summary>View plans</summary>
+{% for plan in user.plans %}
+<p><strong>Created:</strong> {{ plan.created_at }}</p>
+<pre>{{ plan.original_plan }}</pre>
+{% if plan.updated_plan %}<h4>Updated</h4><pre>{{ plan.updated_plan }}</pre>{% endif %}
+{% endfor %}
+</details>
+{% else %}No plan{% endif %}
+</td>
+</tr>
+{% else %}<tr><td colspan="3">No users yet.</td></tr>{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head">
+  <div><p class="eyebrow">YOUR FITBUDDY PLAN</p><h1>{{ user.name }}</h1></div>
+  <a class="secondary" href="/">Create another</a>
+</div>
+
+<div class="profile-grid">
+  <div><span>User ID</span><strong>{{ user.user_id }}</strong></div>
+  <div><span>Age</span><strong>{{ user.age }}</strong></div>
+  <div><span>Weight</span><strong>{{ user.weight }} kg</strong></div>
+  <div><span>Goal</span><strong>{{ user.goal }}</strong></div>
+  <div><span>Intensity</span><strong>{{ user.intensity }}</strong></div>
+</div>
+
+{% if demo_mode %}<div class="alert info">Demo mode is active because no Gemini API key is configured. Add `GEMINI_API_KEY` to use live AI generation.</div>{% endif %}
+
+{% if original_plan %}
+<section class="card"><h2>Original plan</h2><pre>{{ original_plan }}</pre></section>
+{% endif %}
+<section class="card"><h2>{% if original_plan %}Updated plan{% else %}7-day workout plan{% endif %}</h2><pre>{{ workout_plan }}</pre></section>
+<section class="card tip"><h2>Nutrition / recovery tip</h2><p>{{ nutrition_tip }}</p></section>
+
+<section class="card">
+  <h2>Refine your plan</h2>
+  <p class="muted">Tell FitBuddy what you want changed, for example: “add more mobility work” or “include an extra recovery day.”</p>
+  <form method="post" action="/submit-feedback">
+    <input type="hidden" name="user_id" value="{{ user.user_id }}">
+    <textarea name="feedback" required minlength="5" maxlength="1500" rows="5" placeholder="What would you like to change?"></textarea>
+    <button class="primary" type="submit">Update Plan</button>
+  </form>
+</section>
+{% endblock %}

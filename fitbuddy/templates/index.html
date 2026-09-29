@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">AI FITNESS PLANNER</p>
+  <h1>Build a 7-day plan that fits you.</h1>
+  <p>Enter a few details and FitBuddy will generate a structured workout plan plus a practical nutrition or recovery tip.</p>
+</section>
+
+<section class="card form-card">
+  <h2>Your profile</h2>
+  <form method="post" action="/generate-workout" class="grid-form">
+    <label>Name<input name="name" required minlength="2" maxlength="120" placeholder="Alex"></label>
+    <label>User ID<input name="user_id" required pattern="[A-Za-z0-9_-]+" placeholder="alex-001"></label>
+    <label>Age<input type="number" name="age" required min="13" max="120" placeholder="25"></label>
+    <label>Weight (kg)<input type="number" name="weight" required min="1" max="500" step="0.1" placeholder="70"></label>
+    <label>Fitness goal
+      <select name="goal" required>
+        <option value="general wellness">General wellness</option>
+        <option value="weight loss">Weight loss</option>
+        <option value="muscle gain">Muscle gain</option>
+        <option value="flexibility">Flexibility</option>
+        <option value="endurance">Endurance</option>
+      </select>
+    </label>
+    <label>Workout intensity
+      <select name="intensity" required>
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
+    </label>
+    <button class="primary full" type="submit">Generate 7-Day Plan</button>
+  </form>
+  <p class="small">Use a nickname or non-sensitive user ID. The app is designed for general wellness guidance.</p>
+</section>
+{% endblock %}
